@@ -1,0 +1,305 @@
+.app {
+  max-width: 700px;
+  margin: 20px auto;
+  margin-left: 365px;
+  padding: 20px;
+  background: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, color 0.3s;
+}
+
+.app.dark {
+  background: #1e1e1e;
+  color: #f1f1f1;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dark-toggle {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.search-bar input,
+.note-input input,
+.note-input textarea {
+  width: 100%;
+  padding: 10px;
+  padding-right: 0px;
+  margin: 5px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.app.dark .search-bar input,
+.app.dark .note-input input,
+.app.dark .note-input textarea {
+  background: #2c2c2c;
+  color: #f1f1f1;
+  border: 1px solid #555;
+}
+
+.note-input button {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 10px 14px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.note-input button:hover {
+  background: #2980b9;
+}
+
+.note-input .cancel-btn {
+  background: #e74c3c;
+}
+
+.note-input .cancel-btn:hover {
+  background: #c0392b;
+}
+
+.notes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.note-card {
+  padding: 15px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.app.dark .note-card {
+  background: #2c2c2c;
+  color: #f1f1f1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.note-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.note-card p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: #555;
+}
+
+.note-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons in notes */
+.note-card button {
+  padding: 6px 10px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.note-card .edit-btn {
+  background: #f1c40f;
+  color: #333;
+}
+
+.note-card .edit-btn:hover {
+  background: #d4ac0d;
+}
+
+.note-card .delete-btn {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.note-card .delete-btn:hover {
+  background: #c0392b;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.note-card.adding {
+  animation: fadeInUp 0.4s ease;
+}
+.note-card.removing {
+  animation: fadeOutDown 0.4s ease forwards;
+}
+
+/* Highlight edit */
+.note-card.updated {
+  animation: highlightEdit 1s ease;
+}
+
+@keyframes highlightEdit {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 193, 7, 0);
+  }
+  20% {
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255, 193, 7, 0);
+  }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+}
+.modal-overlay.hide {
+  opacity: 0;
+}
+
+.modal {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modal.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.modal.hide {
+  transform: translateY(-30px);
+  opacity: 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-actions button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-actions .confirm {
+  background: #28a745;
+  color: #fff;
+}
+
+.modal-actions .confirm:hover {
+  background: #218838;
+}
+
+.modal-actions .cancel {
+  background: #dc3545;
+  color: #fff;
+}
+
+.modal-actions .cancel:hover {
+  background: #c82333;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.modal.shake {
+  animation: shake 0.4s ease;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+button.confirm.pulse {
+  animation: pulse 0.4s ease;
+}
+
+.Toastify__toast {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
